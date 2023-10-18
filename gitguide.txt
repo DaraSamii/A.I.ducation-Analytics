@@ -1,0 +1,33 @@
+#Git Setup Guide
+
+ssh-keygen -t ed25519 -C "email@email.com"
+
+eval "$(ssh-agent -s)"
+
+ssh-add ~/.ssh/id_ed25519
+
+cat ~/.ssh
+
+#check if config file exists 
+cat ~/.ssh/config
+
+#if not create
+touch ~/.ssh/config
+gedit ~/.ssh/config 
+
+#add the following lines in config
+Host *
+	AddKeysToAgent yes	
+	IdentityFile ~/.ssh/id_ed25519
+
+#goto github and the generated key 
+#take the entire output from below cmd
+
+cat ~/.ssh/id_ed25519.pub 
+
+#verify connection details
+
+ssh -T git@github.com
+
+#add mail to global conf
+git config --global user.email "email@email.com"
