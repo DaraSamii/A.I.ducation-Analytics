@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+
+\bibitem{FER2013}
+W.~C. Y.~B. Dumitru, Ian~Goodfellow, ``Challenges in representation learning:
+  Facial expression recognition challenge,'' 2013.
+
+\bibitem{barsoum2016training}
+E.~Barsoum, C.~Zhang, C.~C. Ferrer, and Z.~Zhang, ``Training deep networks for
+  facial expression recognition with crowd-sourced label distribution,'' in
+  {\em Proceedings of the 18th ACM international conference on multimodal
+  interaction}, pp.~279--283, 2016.
+
+\end{thebibliography}

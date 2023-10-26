@@ -1,0 +1,217 @@
+\documentclass[]{report}
+\usepackage[notransparent]{svg}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	pdfpagemode=FullScreen,
+}
+\usepackage{subfig}
+\usepackage{array}
+ 
+\usepackage[left=0.8in,top=1in,right=0.8in,bottom=1in]{geometry}
+\begin{document}
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+
+		\includesvg{ConLogo}
+		
+		\vspace*{2cm}
+		
+		\textbf{\Large COMP 6721 Applied Artificial Intelligence}
+		
+		\vspace{0.5cm}
+		Professor René Witte
+		
+		\vspace{1.5cm}
+		\textbf{Group Name:}\\
+		NS 01
+		\vspace{1.5cm}
+		
+		\textbf{Group Members:}\\
+		Dara Rahmat Samii (40281972)\\ Numan Salim Shaikh (40266934) \\ hahab Amrollahibioki (40292670)
+		
+		
+		\vfill
+		
+		\textbf{GitHub Link:}\\
+		\href{https://github.com/DaraSamii/A.I.ducation-Analytics}{github.com/DaraSamii/A.I.ducation-Analytics}
+		
+		\vfill
+
+		
+		October 2023
+		
+	\end{center}
+\end{titlepage}
+\newpage
+\chapter{Dataset}
+\section{Facial Expression Recognition(FER) 2013 Dataset}
+The main Dataset for the project is FER2013 \cite{FER2013}. Dataset was prepared by Pierre-Luc Carrier and Aaron Courville, as part of an ongoing research project. This dataset consists of $48 \times 48$ pixel grayscale images of faces and totally the Dataset consists of \textbf{32298} examples. The faces have been automatically registered so that the face is more or less centered and occupies about the same amount of space in each image. There Seven emotions which is expressed in face pictures
+
+\begin{enumerate}
+	\item Angry
+	\item Disgust
+	\item Fear
+	\item Happy
+	\item Sad
+	\item Surprise
+	\item Neutral
+\end{enumerate}
+
+\begin{table}
+	\centering
+	\caption{Sample of FER2013 Dataset}
+	\begin{tabular}{| c | c |}
+		
+		\hline
+		emotion &	pixels \\
+		\hline
+		0 &	70 80 82 72 58 58 60 63 54 58 60 48 89 115 121... \\ \hline
+		0 &	151 150 147 155 148 133 111 140 170 174 182 15... \\ \hline
+		2 &	231 212 156 164 174 138 161 173 182 200 106 38... \\ \hline
+		4 &	24 32 36 30 32 23 19 20 30 41 21 22 32 34 21 1... \\ \hline
+		6 &	4 0 0 0 0 0 0 0 0 0 0 0 3 15 23 28 48 50 58 84... \\ \hline
+	\end{tabular}
+\end{table}
+\begin{figure}
+	\centering
+	\includesvg[width=0.7\textwidth]{./imgs/initial_countplot}
+	\caption{Number of images per each emotion in FER2013}
+\end{figure}
+\section{FER+}
+In 2016 Emad Barsoum et al. in their paper "Training Deep Networks for Facial Expression Recognition with Crowd-Sourced Label Distribution"\cite{barsoum2016training} used Crowd-sourcing and 10 taggers to label each input image of FER2013, and compared four different approaches to utilizing the multiple labels. 
+
+The dataset contained the original number of samples, the difference was that emotions mentioned in the previous section in addition to "Not Face" and "Unknown" Labels were voted by 10 taggers and the score of each label had been recorded.
+
+We merged two datasets to create more accurate dataset which it the intensity of each emotions can be measured by the number of votes each label had received by the taggers. For the project, Neutral and Angry labels can be used directly. Based on the scores for each emotion in FER+ and the ratio two other labels of 'Bored/Tired' and 'Engaged/Focused' can be extracted which the methodology will be described in the coming sections.
+
+\begin{table}
+	\centering
+	\caption{Sample of FER+ merged with FER2013}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+emotion &	pixels &	neutral &	happiness &	surprise &	sadness &	anger &	disgust &	fear &	contempt &	unknown &	NF \\ \hline
+Angry &	70 80  ... &	4 &	0 &	0 &	1 &	3 &	2 &	0 &	0 &	0 &	0 \\\hline
+Angry &	151 150  ... &	6 &	0 &	1 &	1 &	0 &	0 &	0 &	0 &	2 &	0 \\ \hline
+Fear &	231 212 8 ... &	5 &	0 &	0 &	3 &	1 &	0 &	0 &	0 &	1 &	0 \\ \hline
+Sad &	24 32 ... &	4 &	0 &	0 &	4 &	1 &	0 &	0 &	0 &	1 &	0 \\ \hline
+	\end{tabular}
+\end{table}
+
+
+\chapter{Data Cleaning}
+\section{Removing images labels as 'Not Face'}
+Firstly, there are many images which were labeled as 'Not Face' there are 4 different scores which some images had received from taggers:
+\begin{itemize}
+	\item number of images with score $NF=10$ is  176.
+	\item number of images with score $NF=4$ is  2.
+	\item number of images with score $NF=2$ is  4.
+	\item number of images with score $NF=1$ is  167.
+\end{itemize}
+a sample of images which was labeled by taggers as 'Not Face' can be seen in fig.\ref{fig:nf}. As the total numbers of images with NF score of non-zero in comparison to the total dataset size is relatively small we removed all the images with NF score of non-zero. 
+\begin{figure}[h]
+	\label{fig:nf}
+	\centering
+	\subfloat[Images with NF=10]{{\includesvg[width=8cm]{./imgs/NF10} }}
+	\qquad
+	\subfloat[Images with NF=2]{{\includesvg[width=8cm]{./imgs/NF2} }}
+	\caption{Images with "Not Face" score of non-zero}
+\end{figure}
+\section{Removing images labels as 'Unknown'}
+The same must be done with the images labeled as unknown. The "unknown" score for images is as follows:
+\begin{itemize}
+	\item number of images with score unknown=8 is  3.
+	\item number of images with score unknown=7 is  3.
+	\item number of images with score unknown=6 is  18.
+	\item number of images with score unknown=5 is  55.
+	\item number of images with score unknown=4 is  224.
+	\item number of images with score unknown=3 is  751.
+	\item number of images with score unknown=2 is  2526.
+	\item number of images with score unknown=1 is  8220.
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\subfloat[Images with unknown=6]{{\includesvg[width=8cm]{./imgs/uk6} }}
+	\qquad
+	\subfloat[Images with unknown=5]{{\includesvg[width=8cm]{./imgs/uk5} }}
+	\caption{Images with "unknown" score of non-zero}
+	\label{fig:uk}
+\end{figure}
+
+Based on Fig.\ref{fig:uk} we decided to remove any image with 'unknown' score of 5 and more.
+
+\chapter{Labeling}
+For the project we must be able to classify four labels, Anger, Neutral, Bored and Focused. The original dataset has the emotions of Anger and Neutral, however, there is no emotions specifically depicting Being bored or focused. In this chapter the methodology for extracting the target labels from the original scores will be explained.
+\section{Anger}
+The criteria to label an image 'Angry' based on the emotions score was fairly easy. if the angry score had the highest value among other emotions we labeled the image 'Angry'.
+if some rare cases it might be possible that all the scores were the same. so we added another criteria which indicated that the angry score must be at least more that 2 as well.
+
+\section{Neutral}
+If the neutral score had the maximum value among other emotions the image was labeled as neutral.
+
+\section{Focused}
+By analyzing the pictures which imaged a focused face we found that this face expression has no sign of sadness and the neutral score should be more than other emotion scores.
+
+\section{Bored}
+This face expression criteria was drived by that when you are bored are not happy, also there is no fear when someone is bored. the bored person might be angry but the anger should be less than the sadness the face is expressing.
+
+\begin{table}[h]
+	\centering
+	\caption{Summary of criterion's for labeling images based on emotion's scores}
+	\begin{tabular}{|m{2cm}|m{8cm}|}
+		\hline
+		Label & criteria \\ \hline
+		Anger & \begin{itemize}
+			\item Anger score $>$ other emotion's score
+			\item Anger score $>$ 2
+		\end{itemize} \\ \hline
+		Neutral & \begin{itemize}
+			\item Neutral score $>$ other emotion's score
+		\end{itemize} \\ \hline
+		Focused & \begin{itemize}
+			\item sadness score $==$ 0
+			\item neutral score $>$ other emotion's score
+		\end{itemize} \\ \hline
+		Bored & \begin{itemize}
+			\item happiness score $==$ 0
+			\item fear score $==$ 0
+			\item anger score $<$ sadness score
+		\end{itemize} \\ \hline
+	\end{tabular}
+\end{table}
+\chapter{Dataset Visualization}
+Finally, after removing and cleaning the data followed by extracting the desired label the dataset contains:
+\begin{itemize}
+	\item number of samples for neutral: 6184
+	\item number of samples for angry: 3954
+	\item number of samples for focused: 5453
+	\item number of samples for bored: 3168
+\end{itemize}
+The bar-plot of the plot's per emotion is shown in Fig. \ref{}
+
+\begin{figure}[h]
+	\centering
+	\includesvg[width=0.7\linewidth]{./imgs/cleaned_countplot}
+	\caption{Bar-plot of images per desired emotion}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\subfloat[Samples of images labeled as 'Angry']{{\includesvg[width=8cm]{./imgs/angry_sample} }}
+	\qquad
+	\subfloat[Samples of images labeled as 'Bored']{{\includesvg[width=8cm]{./imgs/bored_sample} }}
+	\qquad
+	\subfloat[Samples of images labeled as 'Neutral']{{\includesvg[width=8cm]{./imgs/neutral_sample} }}
+	\qquad
+	\subfloat[Samples of images labeled as 'Focused']{{\includesvg[width=8cm]{./imgs/focused_sample} }}
+	
+	\caption{Samples of the cleaned dataset}
+\end{figure}
+
+\bibliographystyle{ieeetr}
+\bibliography{bib} 
+\end{document}
