@@ -1,0 +1,16 @@
+# Source directory
+
+**`cleaning.py` uses `utli.py` funtions to create the cleaned Dataset from `./fer2013/fer2013.csv` and `./fer2013/fer2013new.csv` named `Cleaned_data.csv`**
+.
+├── cleaning.ipynb
+├── cleaning.py
+├── fer2013
+│   ├── fer2013.csv
+│   ├── fer2013new.csv
+│   └── README
+├── README
+└── utils.py
+
+1 directory, 7 files
+
+
