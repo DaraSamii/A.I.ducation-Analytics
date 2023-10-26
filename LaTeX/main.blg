@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: ieeetr.bst
+Database file #1: bib.bib
+Too many commas in name 1 of "Dumitru, Ian Goodfellow, Will Cukierski, Yoshua Bengio" for entry FER2013
+while executing---line 969 of file ieeetr.bst
+You've used 2 entries,
+            1876 wiz_defined-function locations,
+            489 strings with 3896 characters,
+and the built_in function-call counts, 515 in all, are:
+= -- 46
+> -- 18
+< -- 0
++ -- 7
+- -- 5
+* -- 31
+:= -- 75
+add.period$ -- 2
+call.type$ -- 2
+change.case$ -- 2
+chr.to.int$ -- 0
+cite$ -- 2
+duplicate$ -- 25
+empty$ -- 56
+format.name$ -- 5
+if$ -- 124
+int.to.chr$ -- 0
+int.to.str$ -- 2
+missing$ -- 1
+newline$ -- 9
+num.names$ -- 2
+pop$ -- 14
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 19
+stack$ -- 0
+substring$ -- 32
+swap$ -- 9
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 5
+width$ -- 3
+write$ -- 18
+(There was 1 error message)
