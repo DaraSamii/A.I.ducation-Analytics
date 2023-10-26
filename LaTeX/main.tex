@@ -10,7 +10,9 @@
 }
 \usepackage{subfig}
 \usepackage{array}
- 
+ \usepackage{etoolbox}
+ \makeatletter
+ \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \usepackage[left=0.8in,top=1in,right=0.8in,bottom=1in]{geometry}
 \begin{document}
 \begin{titlepage}
@@ -50,7 +52,7 @@
 \newpage
 \chapter{Dataset}
 \section{Facial Expression Recognition(FER) 2013 Dataset}
-The primary dataset employed in this project is the FER2013 dataset\cite{FER2013}, a pivotal resource in the realm of facial emotion recognition. This dataset was meticulously curated by Pierre-Luc Carrier and Aaron Courville, constituting a vital element within their ongoing research endeavor. The FER2013 dataset stands out due to its comprehensive nature and standardized structure.
+The primary dataset employed in this project is the FER2013 dataset\cite{FER2013}, a pivotal resource in the realm of facial emotion recognition. This dataset was meticulously curated by Pierre-Luc Carrier and Aaron Courville, constituting a vital element within their ongoing research endeavor. The FER2013 dataset stands out due to its comprehensive nature and standardized structure.\footnote{dataset link: \href{https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data}{https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data}}
 
 Comprising grayscale images, each measuring $48 \times 48$ pixels, the FER2013 dataset boasts an impressive total of \textbf{32,298} individual samples. This substantial dataset is a rich source for training and evaluating emotion recognition models.
 
@@ -90,7 +92,7 @@ The FER2013 dataset categorizes emotions into seven distinct classes, each repre
 	\caption{Number of images per each emotion in FER2013}
 \end{figure}
 \section{FER+}
-In 2016 Emad Barsoum et al. in their paper "Training Deep Networks for Facial Expression Recognition with Crowd-Sourced Label Distribution"\cite{barsoum2016training} used Crowd-sourcing and 10 taggers to label each input image of FER2013, and compared four different approaches to utilizing the multiple labels. 
+In 2016 Emad Barsoum et al. in their paper "Training Deep Networks for Facial Expression Recognition with Crowd-Sourced Label Distribution"\cite{barsoum2016training} used Crowd-sourcing and 10 taggers to label each input image of FER2013, and compared four different approaches to utilizing the multiple labels.\footnote{Dataset link: \href{https://github.com/Microsoft/FERPlus}{https://github.com/Microsoft/FERPlus}}
 
 The dataset contained the original number of samples, the difference was that emotions mentioned in the previous section in addition to "Not Face" and "Unknown" Labels were voted by 10 taggers and the score of each label had been recorded.
 

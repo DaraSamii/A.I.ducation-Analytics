@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.13)  26 OCT 2023 14:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.13)  26 OCT 2023 14:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -279,15 +279,19 @@ Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
 \backup@length=\skip56
 \ar@cellbox=\box52
 )
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count281
+)
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count281
-\Gm@cntv=\count282
-\c@Gm@tempcnt=\count283
+\Gm@cnth=\count282
+\Gm@cntv=\count283
+\c@Gm@tempcnt=\count284
 \Gm@bindingoffset=\dimen155
 \Gm@wd@mp=\dimen156
 \Gm@odd@mp=\dimen157
@@ -300,42 +304,42 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count284
+\l__color_backend_stack_int=\count285
 \l__pdf_internal_box=\box53
 )
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count285
+\scratchcounter=\count286
 \scratchdimen=\dimen163
 \scratchbox=\box54
-\nofMPsegments=\count286
-\nofMParguments=\count287
+\nofMPsegments=\count287
+\nofMParguments=\count288
 \everyMPshowfont=\toks19
-\MPscratchCnt=\count288
+\MPscratchCnt=\count289
 \MPscratchDim=\dimen164
-\MPnumerator=\count289
-\makeMPintoPDFobject=\count290
+\MPnumerator=\count290
+\makeMPintoPDFobject=\count291
 \everyMPtoPDFconversion=\toks20
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -346,7 +350,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 15.
+Package hyperref Info: Link coloring ON on input line 17.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -357,11 +361,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count291
+\c@section@level=\count292
 )
-LaTeX Info: Redefining \ref on input line 15.
-LaTeX Info: Redefining \pageref on input line 15.
-LaTeX Info: Redefining \nameref on input line 15.
+LaTeX Info: Redefining \ref on input line 17.
+LaTeX Info: Redefining \pageref on input line 17.
+LaTeX Info: Redefining \nameref on input line 17.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
@@ -406,7 +410,7 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package svg Info: Last page of `./svg-inkscape/ConLogo_svg-tex.pdf' is 1 on inp
-ut line 20.
+ut line 22.
 (./svg-inkscape/ConLogo_svg-tex.pdf_tex
 <./svg-inkscape/ConLogo_svg-tex.pdf, id=53, page=1, 340.00493pt x 80.77866pt>
 File: ./svg-inkscape/ConLogo_svg-tex.pdf Graphic file (type pdf)
@@ -423,10 +427,14 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 55.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 55.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 55.
 Package svg Info: Last page of `./svg-inkscape/initial_countplot_svg-tex.pdf' i
-s 1 on input line 89.
+s 1 on input line 91.
 (./svg-inkscape/initial_countplot_svg-tex.pdf_tex
-<./svg-inkscape/initial_countplot_svg-tex.pdf, id=73, page=1, 462.52798pt x 346
+<./svg-inkscape/initial_countplot_svg-tex.pdf, id=75, page=1, 462.52798pt x 346
 .89601pt>
 File: ./svg-inkscape/initial_countplot_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/initial_countplot_svg-tex.pdf, page 1>
@@ -437,20 +445,19 @@ sed on input line 56.
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.94 
-      [1
-
-]
-Overfull \hbox (44.09392pt too wide) in paragraph at lines 111--119
+l.96 
+      [1]
+Overfull \hbox (44.09392pt too wide) in paragraph at lines 113--121
  [][] 
  []
 
-[2 <./svg-inkscape/initial_countplot_svg-tex.pdf>] [3]
 Chapter 2.
+[2 <./svg-inkscape/initial_countplot_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/NF10_svg-tex.pdf' is 1 on input 
-line 140.
+line 142.
+
 (./svg-inkscape/NF10_svg-tex.pdf_tex
-<./svg-inkscape/NF10_svg-tex.pdf, id=125, page=1, 462.52798pt x 346.89601pt>
+<./svg-inkscape/NF10_svg-tex.pdf, id=129, page=1, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/NF10_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/NF10_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/NF10_svg-tex.pdf , page1 used on input 
@@ -458,26 +465,22 @@ line 56.
 (pdftex.def)             Requested size: 227.62204pt x 170.71628pt.
 )
 Package svg Info: Last page of `./svg-inkscape/NF2_svg-tex.pdf' is 1 on input l
-ine 142.
+ine 144.
  (./svg-inkscape/NF2_svg-tex.pdf_tex
-<./svg-inkscape/NF2_svg-tex.pdf, id=127, page=1, 462.52798pt x 346.89601pt>
+<./svg-inkscape/NF2_svg-tex.pdf, id=131, page=1, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/NF2_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/NF2_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/NF2_svg-tex.pdf , page1 used on input l
 ine 56.
 (pdftex.def)             Requested size: 227.62204pt x 170.71628pt.
 )
-[4
 
- <./svg-inkscape/NF10_svg-tex.pdf> <./svg-inkscape/NF2_svg-tex.pdf
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/NF2_svg-tex.pdf): PDF in
-clusion: multiple pdfs with page group included in a single page
->]
 Package svg Info: Last page of `./svg-inkscape/uk6_svg-tex.pdf' is 1 on input l
-ine 161.
- (./svg-inkscape/uk6_svg-tex.pdf_tex
-<./svg-inkscape/uk6_svg-tex.pdf, id=394, page=1, 462.52798pt x 346.89601pt>
+ine 163.
+(./svg-inkscape/uk6_svg-tex.pdf_tex
+<./svg-inkscape/uk6_svg-tex.pdf, id=133, page=1, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/uk6_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/uk6_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/uk6_svg-tex.pdf , page1 used on input l
@@ -485,32 +488,39 @@ ine 56.
 (pdftex.def)             Requested size: 227.62204pt x 170.71628pt.
 )
 Package svg Info: Last page of `./svg-inkscape/uk5_svg-tex.pdf' is 1 on input l
-ine 163.
+ine 165.
  (./svg-inkscape/uk5_svg-tex.pdf_tex
-<./svg-inkscape/uk5_svg-tex.pdf, id=396, page=1, 462.52798pt x 346.89601pt>
+<./svg-inkscape/uk5_svg-tex.pdf, id=135, page=1, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/uk5_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/uk5_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/uk5_svg-tex.pdf , page1 used on input l
 ine 56.
 (pdftex.def)             Requested size: 227.62204pt x 170.71628pt.
 )
-[5 <./svg-inkscape/uk6_svg-tex.pdf> <./svg-inkscape/uk5_svg-tex.pdf
+[3]
+Chapter 3.
+[4 <./svg-inkscape/NF10_svg-tex.pdf> <./svg-inkscape/NF2_svg-tex.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/NF2_svg-tex.pdf): PDF in
+clusion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/uk6_svg-tex.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/uk6_svg-tex.pdf): PDF in
+clusion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/uk5_svg-tex.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/uk5_svg-tex.pdf): PDF in
 clusion: multiple pdfs with page group included in a single page
 >]
-Chapter 3.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6
-
-] [7]
 Chapter 4.
+[5]
 Package svg Info: Last page of `./svg-inkscape/cleaned_countplot_svg-tex.pdf' i
-s 1 on input line 230.
-(./svg-inkscape/cleaned_countplot_svg-tex.pdf_tex
-<./svg-inkscape/cleaned_countplot_svg-tex.pdf, id=626, page=1, 462.52798pt x 34
+s 1 on input line 232.
+ (./svg-inkscape/cleaned_countplot_svg-tex.pdf_tex
+<./svg-inkscape/cleaned_countplot_svg-tex.pdf, id=623, page=1, 462.52798pt x 34
 6.89601pt>
 File: ./svg-inkscape/cleaned_countplot_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/cleaned_countplot_svg-tex.pdf, page 1>
@@ -518,11 +528,13 @@ Package pdftex.def Info: ./svg-inkscape/cleaned_countplot_svg-tex.pdf , page1 u
 sed on input line 56.
 (pdftex.def)             Requested size: 349.06227pt x 261.80696pt.
 )
-Package svg Info: Last page of `./svg-inkscape/angry_sample_svg-tex.pdf' is 1 o
-n input line 236.
 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package svg Info: Last page of `./svg-inkscape/angry_sample_svg-tex.pdf' is 1 o
+n input line 238.
 (./svg-inkscape/angry_sample_svg-tex.pdf_tex
-<./svg-inkscape/angry_sample_svg-tex.pdf, id=628, page=1, 462.52798pt x 346.896
+<./svg-inkscape/angry_sample_svg-tex.pdf, id=625, page=1, 462.52798pt x 346.896
 01pt>
 File: ./svg-inkscape/angry_sample_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/angry_sample_svg-tex.pdf, page 1>
@@ -531,10 +543,10 @@ n input line 56.
 (pdftex.def)             Requested size: 227.62204pt x 170.71628pt.
 )
 Package svg Info: Last page of `./svg-inkscape/bored_sample_svg-tex.pdf' is 1 o
-n input line 238.
+n input line 240.
 
 (./svg-inkscape/bored_sample_svg-tex.pdf_tex
-<./svg-inkscape/bored_sample_svg-tex.pdf, id=630, page=1, 462.52798pt x 346.896
+<./svg-inkscape/bored_sample_svg-tex.pdf, id=627, page=1, 462.52798pt x 346.896
 01pt>
 File: ./svg-inkscape/bored_sample_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/bored_sample_svg-tex.pdf, page 1>
@@ -543,10 +555,10 @@ n input line 56.
 (pdftex.def)             Requested size: 227.62204pt x 170.71628pt.
 )
 Package svg Info: Last page of `./svg-inkscape/neutral_sample_svg-tex.pdf' is 1
- on input line 240.
+ on input line 242.
 
 (./svg-inkscape/neutral_sample_svg-tex.pdf_tex
-<./svg-inkscape/neutral_sample_svg-tex.pdf, id=632, page=1, 462.52798pt x 346.8
+<./svg-inkscape/neutral_sample_svg-tex.pdf, id=629, page=1, 462.52798pt x 346.8
 9601pt>
 File: ./svg-inkscape/neutral_sample_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/neutral_sample_svg-tex.pdf, page 1>
@@ -555,10 +567,10 @@ Package pdftex.def Info: ./svg-inkscape/neutral_sample_svg-tex.pdf , page1 used
 (pdftex.def)             Requested size: 227.62204pt x 170.71628pt.
 )
 Package svg Info: Last page of `./svg-inkscape/focused_sample_svg-tex.pdf' is 1
- on input line 242.
+ on input line 244.
 
 (./svg-inkscape/focused_sample_svg-tex.pdf_tex
-<./svg-inkscape/focused_sample_svg-tex.pdf, id=634, page=1, 462.52798pt x 346.8
+<./svg-inkscape/focused_sample_svg-tex.pdf, id=631, page=1, 462.52798pt x 346.8
 9601pt>
 File: ./svg-inkscape/focused_sample_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/focused_sample_svg-tex.pdf, page 1>
@@ -569,10 +581,8 @@ Package pdftex.def Info: ./svg-inkscape/focused_sample_svg-tex.pdf , page1 used
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-(./main.bbl [8
-
- <./svg-inkscape/cleaned_countplot_svg-tex.pdf>] [9 <./svg-inkscape/angry_sampl
-e_svg-tex.pdf> <./svg-inkscape/bored_sample_svg-tex.pdf
+(./main.bbl [6]) [7 <./svg-inkscape/cleaned_countplot_svg-tex.pdf>] [8 <./svg-i
+nkscape/angry_sample_svg-tex.pdf> <./svg-inkscape/bored_sample_svg-tex.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/bored_sample_svg-tex.pdf
 ): PDF inclusion: multiple pdfs with page group included in a single page
@@ -584,32 +594,32 @@ df): PDF inclusion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/focused_sample_svg-tex.p
 df): PDF inclusion: multiple pdfs with page group included in a single page
->]) [10
-
-] (./main.aux)
+>] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 037961CE0C60EF6141F4EC895E637463;1673.
  ) 
 Here is how much of TeX's memory you used:
- 11643 strings out of 480120
- 196003 string characters out of 5893109
- 515259 words of memory out of 5000000
- 29390 multiletter control sequences out of 15000+600000
- 472364 words of font info for 38 fonts, out of 8000000 for 9000
+ 11974 strings out of 480120
+ 200129 string characters out of 5893109
+ 527090 words of memory out of 5000000
+ 29712 multiletter control sequences out of 15000+600000
+ 473888 words of font info for 43 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
- 94i,11n,92p,486b,606s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 94i,11n,92p,664b,606s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/dara/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600p
 k></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmti10.pfb>
-Output written on main.pdf (11 pages, 965880 bytes).
+mf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmti10.pfb>
+Output written on main.pdf (9 pages, 983719 bytes).
 PDF statistics:
- 1227 PDF objects out of 1440 (max. 8388607)
- 774 compressed objects within 8 object streams
+ 1234 PDF objects out of 1440 (max. 8388607)
+ 779 compressed objects within 8 object streams
  49 named destinations out of 1000 (max. 500000)
  207 words of extra memory for PDF output out of 10000 (max. 10000000)
 
