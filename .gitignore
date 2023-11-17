@@ -1,3 +1,6 @@
 ./source/fer2013/fer2013.csv
 *hello
 *.csv
+__pycache__/
+.ipynb_checkpoints/
+

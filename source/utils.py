@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from torchvision.utils import make_grid
 
 def img_visualizer(df, row_index, rows=1, cols=1,save_name='',show_label=True):
     '''
@@ -30,13 +31,6 @@ def img_visualizer(df, row_index, rows=1, cols=1,save_name='',show_label=True):
 
 
 def new_emotions(nautral,happy,surprise,sad,anger,disgust,fear):
-    '''
-    this function creates 4 main labels for the porpuse of the project
-    1. anger
-    2. nautral
-    3. focused
-    4. bored
-    '''
     a1=np.greater(nautral, happy)
     a2=np.greater(nautral, surprise)
     a3=np.greater(nautral, sad)
@@ -53,12 +47,22 @@ def new_emotions(nautral,happy,surprise,sad,anger,disgust,fear):
 
     if np.greater(anger,2) or (b1 and b2 and b3 and b4 and b5 and b6):    
         return "angry"
-    if (a1 and a2 and a3 and a4 and a5 and a6) and(sad == 0):
+    if (a1 and a2 and a3 and a4 and a5 and a6) and(sad == 0) and (anger == 0):
         return "focused"
-    if (a1 and a2 and a3 and a4 and a5 and a6):
-        return "neutral"
-    if (sad != 0) and (nautral != 0)and (fear == 0) and (happy == 0) and(anger < sad):
+    if (a1 and a2 and a3 and a4 and a5 and a6) and nautral > 6:
+        return "nautral"
+    if (sad != 0) and (nautral != 0)and (fear == 0) and (happy == 0) and(anger+2 < sad):
         return "bored"
 
     else:
         return "other"
+
+def show_images(images, nmax=64):
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.set_xticks([]); ax.set_yticks([])
+    ax.imshow(make_grid((images.detach()[:nmax]), nrow=8).permute(1, 2, 0))
+
+def show_batch(dl, nmax=64):
+    for images in dl:
+        show_images(images, nmax)
+        break

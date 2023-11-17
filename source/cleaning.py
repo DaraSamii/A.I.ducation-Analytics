@@ -68,7 +68,7 @@ ndf.to_csv("Cleaned_data.csv")
 df = pd.read_csv("Cleaned_data.csv")
 
 
-for i in ['neutral','angry','focused','bored']:
+for i in ['nautral','angry','focused','bored']:
     img_visualizer(df,list(df[df['new_emotions'] == i].head(25).index), 5,5,save_name='{}_sample.svg'.format(i),show_label=False)
     print("number of samples for {}: {}".format(i,df[df['new_emotions'] == i].shape[0]))
 
