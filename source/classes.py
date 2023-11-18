@@ -23,12 +23,18 @@ from torchvision import transforms
 import torchvision.models as models
 
 
-#################################################################################################################
+################################################################################################################################################
 class ImageDataset(Dataset):
+    '''
+    torch Dateset to load the images from the specified direftory
+    '''
     def _label_func(self, file_path):
+        '''
+        this function is used to extract the name/label from the path given
+        '''
         return file_path.split("/")[-2]
 
-    def __init__(self,path,):
+    def __init__(self,path):
         self.path = os.path.abspath(path)
         self.folders = os.listdir(path)
 
@@ -64,7 +70,7 @@ class ImageDataset(Dataset):
 
         return Im, label
     
-    ######################################################################################################################################
+######################################################################################################################################
 
 class Learner:
     def __init__(self, train_dl, val_dl, model,labels_name, base_lr=0.001, base_wd = 0.0,save_best=None,log_path=None):
@@ -85,7 +91,28 @@ class Learner:
         self.metrics = {}
         self.best_score = 0.0
 
+
+################################################################################################################################################
     def train_one_epoch(self,lr,wd=0.0):
+        """
+        Trains the neural network model for one epoch using the provided learning rate and weight decay.
+
+        Parameters:
+            - lr (float): Learning rate for the optimizer.
+            - wd (float, optional): Weight decay parameter for regularization (default is 0.0).
+
+        Returns:
+            - train_loss (float): Average training loss for the epoch.
+
+        Note:
+            - This function assumes that the class instance has the following attributes:
+                - model: Neural network model
+                - optim: Optimizer for training
+                - criterion: Loss criterion
+                - train_dl: Training data loader
+                - device: Device (CPU or GPU) on which the model and data should be placed
+                - metrics: Dictionary to store training metrics (e.g., training loss)
+        """
         self.model.train()
         self.lr = lr
         self.wd=wd
@@ -115,8 +142,23 @@ class Learner:
         self.metrics["train loss"] = train_loss / len(self.train_dl)
         return train_loss
 
-    def eval(self):
 
+################################################################################################################################################
+    def eval(self):
+        """
+        Evaluates the neural network model on the validation dataset and computes various classification metrics.
+
+        Returns:
+            None
+
+        Note:
+            - This function assumes that the class instance has the following attributes:
+                - model: Neural network model
+                - val_dl: Validation data loader
+                - device: Device (CPU or GPU) on which the model and data should be placed
+                - criterion: Loss criterion
+                - metrics: Dictionary to store evaluation metrics (e.g., validation loss, accuracy, precision, recall, F1 score)
+        """
         self.model.eval()
 
         self.val_loss = 0.0
@@ -154,6 +196,8 @@ class Learner:
         self.metrics['Recall Macro']= recall_macro
         self.metrics['F1 Score Macro']= f1_macro
 
+
+################################################################################################################################################
     def print_metrics(self):
         formatted_metrics = {key: f"{value:.{4}f}" if isinstance(value, (float, np.float32, np.float64)) else value
                                 for key, value in self.metrics.items()}
@@ -161,6 +205,8 @@ class Learner:
         metric_str = ", ".join([f"{key}: {value}" for key, value in formatted_metrics.items()])
         print(metric_str)
 
+
+################################################################################################################################################
     def train_eval(self,lr,epochs,wd=0.0):
         for _ in range(epochs):
             self.metrics = {"epoch": self.epoch}
@@ -177,22 +223,28 @@ class Learner:
                     print("\nNew best score -- model saved")
             self.save_log(self.log_path)
 
+
+################################################################################################################################################
     def save_log(self,path):
         df = pd.DataFrame(self.logs)
         df.to_csv(path + ".csv")
 
+################################################################################################################################################
     def save(self,path):
         T.save(self.model.state_dict(), path)
         self.save_log(self.log_path)
 
+################################################################################################################################################
     def load(self,path):
         state = T.load(path)
         self.model.load_state_dict(state_dict=state,strict=False)
 
+################################################################################################################################################
     def load_log(self,path):
         df = pd.read_csv(path)
         self.log = df.to_json()
 
+################################################################################################################################################
     def plot_metrics_micro(self,save_path=None):
         df = pd.DataFrame(self.logs)
         self.df=df
@@ -207,7 +259,7 @@ class Learner:
         if save_path != None:
             plt.savefig(save_path)
 
-
+################################################################################################################################################
     def plot_metrics_macro(self,save_path=None):
         df = pd.DataFrame(self.logs)
         self.df=df
@@ -222,7 +274,7 @@ class Learner:
         if save_path != None:
             plt.savefig(save_path)
 
-            
+################################################################################################################################################
     def plot_loss(self,save_path=None):
         df = pd.DataFrame(self.logs)
         self.df=df
@@ -235,6 +287,8 @@ class Learner:
         if save_path != None:
             plt.savefig(save_path)
 
+
+################################################################################################################################################
     def predict(self, test_dl):
         if T.cuda.is_available():
             self.model.cuda()
@@ -261,7 +315,7 @@ class Learner:
 
         return (all_predictions,all_labels, all_probabilites)
     
-
+################################################################################################################################################
     def plotConfisuionMatrix(self,save_path):
         cm = confusion_matrix(self.test_preds, self.test_labels)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=self.labels_name)

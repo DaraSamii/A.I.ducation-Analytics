@@ -19,11 +19,11 @@ if __name__ == "__main__":
 
 
 
-    block_sizes = [16]#,32,64]
-    num_layers =  [4]#,8,12]
-    kernels = [3]#,5,7]
+    block_sizes = [16,32,64]
+    num_layers =  [4,8]
+    kernels = [3,5,7]
     AP = 20
-    epochs = 3
+    epochs = 100
 
     lr = 0.001
     wd = 0.0001
