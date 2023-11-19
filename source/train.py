@@ -1,16 +1,21 @@
 from classes import *
 
-
+# Main function guard
 if __name__ == "__main__":
     path = "./DataSet/"
     model_path ="./models/"
     ds = ImageDataset(path)
 
+    # labels
     ds_labels = list(ds.classes_dict.keys())
+    # split the dataset to train, validation and test sets with 70%, 15%, 15% respectively
     train_set, val_set, test_set = T.utils.data.random_split(ds, [0.7,0.15,0.15])
 
+    # create train data loaders for each set with batch size of 64
     train_dl = DataLoader(train_set, 64, shuffle=True, num_workers=2, pin_memory=True)
+    # ceate a validation set with batch size of 64
     val_dl = DataLoader(val_set, 64, shuffle=True, num_workers=2, pin_memory=True)
+    # ceate a test set with batch size of 64
     test_dl = DataLoader(test_set, 64, shuffle=True, num_workers=2, pin_memory=True)
 
 
@@ -18,15 +23,22 @@ if __name__ == "__main__":
     print("Train dataset: ", len(train_set), "Valid dataset: ", len(val_set),"Valid dataset: ",len(test_set))
 
 
-
-    block_sizes = [16]#,32,64]
-    num_layers =  [4]#,8,12]
-    kernels = [3]#,5,7]
+    # block size
+    block_sizes = [16,32,64]
+    # number of layers
+    num_layers =  [4,8,12]
+    # kernel size
+    kernels = [3,5,7]
+    # average pool size
     AP = 20
-    epochs = 3
+    # number of epochs
+    epochs = 100
 
+    # learning rate
     lr = 0.001
+    # weight decay
     wd = 0.0001
+    # number of fc layers
     for B in block_sizes:
         for n in num_layers:
             for k in kernels:    

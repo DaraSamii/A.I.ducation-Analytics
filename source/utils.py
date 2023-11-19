@@ -57,11 +57,12 @@ def new_emotions(nautral,happy,surprise,sad,anger,disgust,fear):
     else:
         return "other"
 
+# show images in a grid format with nmax images per row 
 def show_images(images, nmax=64):
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.set_xticks([]); ax.set_yticks([])
     ax.imshow(make_grid((images.detach()[:nmax]), nrow=8).permute(1, 2, 0))
-
+# show a batch of images in a grid format with nmax images per row
 def show_batch(dl, nmax=64):
     for images in dl:
         show_images(images, nmax)
