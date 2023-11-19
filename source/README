@@ -1,16 +1,46 @@
 # Source directory
 
 **`cleaning.py` uses `utli.py` funtions to create the cleaned Dataset from `./fer2013/fer2013.csv` and `./fer2013/fer2013new.csv` named `Cleaned_data.csv`**
+
+** `train.py` uses 'classes.py` to create models, create learner and couples the dataloader and train models and save the results, fiugre and plots in directory `models`
+
+Note: due the Large size of state dictionary of models the models parameters are not incuded.
 .
+├── classes.py
+├── Cleaned_data.csv
 ├── cleaning.ipynb
 ├── cleaning.py
+├── DataSet
+│   ├── angry
+│   ├── bored
+│   ├── focused
+│   └── neutral
 ├── fer2013
 │   ├── fer2013.csv
 │   ├── fer2013new.csv
 │   └── README
+├── models
+│   ├── B16_N12_FC4_K3_AP20
+│   ├── B16_N12_FC4_K5_AP20
+│   ├── B16_N12_FC4_K7_AP20
+│   ├── B16_N4_FC1_K3_AP20
+│   ├── B16_N4_FC1_K5_AP20
+│   ├── B16_N4_FC1_K7_AP20
+│   ├── B16_N8_FC2_K3_AP20
+│   ├── B16_N8_FC2_K5_AP20
+│   ├── B16_N8_FC2_K7_AP20
+│   ├── B32_N4_FC1_K3_AP20
+│   ├── B32_N4_FC1_K5_AP20
+│   ├── B32_N4_FC1_K7_AP20
+│   ├── B32_N8_FC2_K3_AP20
+│   ├── B32_N8_FC2_K5_AP20
+│   ├── B32_N8_FC2_K7_AP20
+│   ├── results.csv
+│   └── Untitled.ipynb
+├── __pycache__
+│   └── utils.cpython-310.pyc
 ├── README
+├── train.py
 └── utils.py
-
-1 directory, 7 files
 
 
