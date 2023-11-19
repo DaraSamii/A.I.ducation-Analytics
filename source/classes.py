@@ -24,10 +24,13 @@ import torchvision.models as models
 
 
 #################################################################################################################
+# Dataset class
 class ImageDataset(Dataset):
+    # label function
     def _label_func(self, file_path):
         return file_path.split("/")[-2]
-
+   
+    #Class constructor
     def __init__(self,path,):
         self.path = os.path.abspath(path)
         self.folders = os.listdir(path)
@@ -53,10 +56,11 @@ class ImageDataset(Dataset):
         self.classes_dict = dict()
         for idx,cls in enumerate(self.classes):
             self.classes_dict[cls] = idx
+    #len function
     def __len__(self):
         return len(self.files)
 
-
+    #getitem function
     def __getitem__(self, idx):
 
         Im=self.transforms(Image.open(self.files[idx]).convert(mode='L'))
@@ -65,7 +69,7 @@ class ImageDataset(Dataset):
         return Im, label
     
     ######################################################################################################################################
-
+# Dataloader class
 class Learner:
     def __init__(self, train_dl, val_dl, model,labels_name, base_lr=0.001, base_wd = 0.0,save_best=None,log_path=None):
         self.train_dl = train_dl
@@ -74,31 +78,36 @@ class Learner:
         self.labels_name = labels_name
         self.save_best =  save_best
         self.log_path = log_path
+        #using cuda if available
         self.device = T.device("cuda" if T.cuda.is_available() else "cpu")
         self.epoch = 0
         self.base_lr = base_lr
         self.base_wd = base_wd
+        #CrossEntropyLoss criterion
         self.criterion = nn.CrossEntropyLoss()
+        #Adam optimizer
         self.optim = optim.Adam(self.model.parameters(), lr=self.base_lr,weight_decay=self.base_wd)
 
         self.logs = []
         self.metrics = {}
         self.best_score = 0.0
-
+    # Training function
     def train_one_epoch(self,lr,wd=0.0):
         self.model.train()
         self.lr = lr
         self.wd=wd
-
+        # Set learning rate
         for g in self.optim.param_groups:
             g['lr'] = self.lr
-
+        # Set weight decay
         for g in self.optim.param_groups:
             g['weight_decay'] = self.wd
 
         self.model.to(self.device)
         self.model.train()
         train_loss = 0.0
+
+        # Training loop
         for inputs, labels in tqdm(self.train_dl):
             inputs, labels = inputs.to(self.device), labels.to(self.device)
 
@@ -111,10 +120,11 @@ class Learner:
             self.optim.step()
 
             train_loss += loss.item()
-
+        # Compute metrics
         self.metrics["train loss"] = train_loss / len(self.train_dl)
         return train_loss
-
+    
+    # Evaluation function
     def eval(self):
 
         self.model.eval()
@@ -123,26 +133,34 @@ class Learner:
         self.all_predictions = []
         self.all_labels = []
 
+        # Validation loop
         with T.no_grad():
             for inputs, labels in tqdm(self.val_dl, position=0, leave=True):
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 self.outputs = self.model(inputs)
                 loss = self.criterion(self.outputs, labels.to(T.float))
                 self.val_loss += loss.item()
-
+                # Get predictions
                 _, predictions = T.max(self.outputs, 1)
 
                 self.all_predictions.extend(predictions.cpu().numpy())
                 self.all_labels.extend(np.argmax(labels.cpu().numpy(),axis=1))
 
         # Compute metrics
+        # accracy calculation TP+TN/TP+TN+FP+FN
         accuracy = accuracy_score(self.all_labels, self.all_predictions)
+        # precision calculation TP/TP+FP
         precision_micro = precision_score(self.all_labels, self.all_predictions, average='micro',zero_division=0)
+        # recall calculation TP/TP+FN
         recall_micro = recall_score(self.all_labels, self.all_predictions, average='micro')
+        # F1 score calculation 2*(precision*recall)/(precision+recall)
         f1_micro = f1_score(self.all_labels, self.all_predictions, average='micro')
 
+        # precision calculation TP/TP+FP macro
         precision_macro = precision_score(self.all_labels, self.all_predictions, average='macro',zero_division=0)
+        # recall calculation TP/TP+FN macro
         recall_macro = recall_score(self.all_labels, self.all_predictions, average='macro')
+        # F1 score calculation 2*(precision*recall)/(precision+recall) macro
         f1_macro = f1_score(self.all_labels, self.all_predictions, average='macro')
         self.metrics['Validation Loss'] = self.val_loss / len(self.val_dl)
 
@@ -154,6 +172,7 @@ class Learner:
         self.metrics['Recall Macro']= recall_macro
         self.metrics['F1 Score Macro']= f1_macro
 
+    # Print metrics function
     def print_metrics(self):
         formatted_metrics = {key: f"{value:.{4}f}" if isinstance(value, (float, np.float32, np.float64)) else value
                                 for key, value in self.metrics.items()}
@@ -161,6 +180,7 @@ class Learner:
         metric_str = ", ".join([f"{key}: {value}" for key, value in formatted_metrics.items()])
         print(metric_str)
 
+    # Training and evaluation function
     def train_eval(self,lr,epochs,wd=0.0):
         for _ in range(epochs):
             self.metrics = {"epoch": self.epoch}
@@ -170,29 +190,34 @@ class Learner:
             self.epoch += 1
             self.print_metrics()
 
+            # Save best model
             if self.metrics["Accuracy"] > self.best_score:
                 self.best_score = self.metrics["Accuracy"]
+                # Save model
                 if self.save_best != None:
                     self.save(self.save_best)
                     print("\nNew best score -- model saved")
             self.save_log(self.log_path)
 
+    # Save and load functions
     def save_log(self,path):
         df = pd.DataFrame(self.logs)
         df.to_csv(path + ".csv")
 
+    # Save and load functions
     def save(self,path):
         T.save(self.model.state_dict(), path)
         self.save_log(self.log_path)
-
+    # Save and load functions
     def load(self,path):
         state = T.load(path)
         self.model.load_state_dict(state_dict=state,strict=False)
-
+    # load log
     def load_log(self,path):
         df = pd.read_csv(path)
         self.log = df.to_json()
 
+    #visualize function min max normalization
     def plot_metrics_micro(self,save_path=None):
         df = pd.DataFrame(self.logs)
         self.df=df
@@ -207,7 +232,7 @@ class Learner:
         if save_path != None:
             plt.savefig(save_path)
 
-
+    #visualize function min max normalization macro
     def plot_metrics_macro(self,save_path=None):
         df = pd.DataFrame(self.logs)
         self.df=df
@@ -222,7 +247,7 @@ class Learner:
         if save_path != None:
             plt.savefig(save_path)
 
-            
+    #visualize plot loss
     def plot_loss(self,save_path=None):
         df = pd.DataFrame(self.logs)
         self.df=df
@@ -234,7 +259,7 @@ class Learner:
         plt.ylabel("Loss")
         if save_path != None:
             plt.savefig(save_path)
-
+    #visualuze confusion matrix
     def predict(self, test_dl):
         if T.cuda.is_available():
             self.model.cuda()
@@ -261,7 +286,7 @@ class Learner:
 
         return (all_predictions,all_labels, all_probabilites)
     
-
+    #visualuze confusion matrix
     def plotConfisuionMatrix(self,save_path):
         cm = confusion_matrix(self.test_preds, self.test_labels)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=self.labels_name)
@@ -269,10 +294,11 @@ class Learner:
         plt.savefig(save_path)
 ################################################################################################################################################
 
-
+# ResNet class
 class ResBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size = 3):
         super(ResBlock, self).__init__()
+        # Residual block is composed of two convolutional layers with batch normalization and ReLU activation and a residual connection
         self.conv1 = nn.Sequential(
                         nn.Conv2d(in_channels, out_channels, kernel_size = kernel_size, stride = 1, padding = kernel_size//2),
                         nn.BatchNorm2d(out_channels),
@@ -282,7 +308,7 @@ class ResBlock(nn.Module):
                         nn.BatchNorm2d(out_channels))
         self.relu = nn.ReLU()
         self.out_channels = out_channels
-        
+    # forward function of the residual block
     def forward(self, x):
         residual = x
         out = self.conv1(x)
@@ -291,24 +317,26 @@ class ResBlock(nn.Module):
         out = self.relu(out)
         return out
 
-
+# ResNet class
 class ResNet(nn.Module):
+    # Class constructor
     def __init__(self,num_classes, num_channel, num_blocks, num_fc_layers, avg_pool_size, kernel_size = 3,):
         super(ResNet, self).__init__()
-
+        # ResNet is composed of a convolutional layer, a residual block and a fully connected layer
         self.resblocks = self._make_resblocks(num_channel, num_blocks,kernel_size)
 
         self.avg_pool = nn.AdaptiveAvgPool2d((avg_pool_size, avg_pool_size))
 
         self.fc_layers = self._make_fc_layers(num_channel* avg_pool_size * avg_pool_size, num_fc_layers,num_classes)
 
+    # Function to create residual blocks
     def _make_resblocks(self, bloc_size, num_resblocks,kernel_size):
         layers = []
         layers.append(ResBlock(1, bloc_size,kernel_size))
         for _ in range(num_resblocks-1):
             layers.append(ResBlock(bloc_size, bloc_size,kernel_size))
         return nn.Sequential(*layers)
-
+    # Function to create fully connected layers
     def _make_fc_layers(self, fc_size, num_fc_layers,num_classes):
         layers = []
         for _ in range(num_fc_layers):
@@ -316,7 +344,7 @@ class ResNet(nn.Module):
             layers.append(nn.ReLU())
         layers.append(nn.Linear(fc_size,num_classes))
         return nn.Sequential(*layers)
-
+    # forward function of the ResNet
     def forward(self, x):
         x = self.resblocks(x)
         x = self.avg_pool(x)
