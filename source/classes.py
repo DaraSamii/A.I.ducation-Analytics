@@ -259,7 +259,7 @@ class Learner:
         plt.ylabel("Loss")
         if save_path != None:
             plt.savefig(save_path)
-    #visualuze confusion matrix
+    # predict function for test set
     def predict(self, test_dl):
         if T.cuda.is_available():
             self.model.cuda()
