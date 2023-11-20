@@ -276,16 +276,6 @@ class Learner:
 
 ################################################################################################################################################
 
-    # Save and load functions
-    def save(self,path):
-        T.save(self.model.state_dict(), path)
-        self.save_log(self.log_path)
-    # Save and load functions
-    def load(self,path):
-        state = T.load(path)
-        self.model.load_state_dict(state_dict=state,strict=False)
-    # load log
-
     def load_log(self,path):
         df = pd.read_csv(path)
         self.log = df.to_json()
