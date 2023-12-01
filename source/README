@@ -4,8 +4,12 @@
 
 ** `train.py` uses 'classes.py` to create models, create learner and couples the dataloader and train models and save the results, fiugre and plots in directory `models`
 
+** the best model found should be put in `bets_model` directory to be used by `predict.py`
+
+**
 Note: due the Large size of state dictionary of models the models parameters are not incuded.
 .
+├── best_model
 ├── classes.py
 ├── Cleaned_data.csv
 ├── cleaning.ipynb
@@ -19,6 +23,25 @@ Note: due the Large size of state dictionary of models the models parameters are
 │   ├── fer2013.csv
 │   ├── fer2013new.csv
 │   └── README
+├── folds
+│   ├── B16_N8_FC2_K5_AP20_fold0
+│   ├── B16_N8_FC2_K5_AP20_fold1
+│   ├── B16_N8_FC2_K5_AP20_fold2
+│   ├── B16_N8_FC2_K5_AP20_fold3
+│   ├── B16_N8_FC2_K5_AP20_fold4
+│   ├── B16_N8_FC2_K5_AP20_fold5
+│   ├── B16_N8_FC2_K5_AP20_fold6
+│   ├── B16_N8_FC2_K5_AP20_fold7
+│   ├── B16_N8_FC2_K5_AP20_fold8
+│   ├── B16_N8_FC2_K5_AP20_fold9
+│   ├── create_fold_results.ipynb
+│   ├── create_fold_results.py
+│   └── fold_results.csv
+├── Gender_Age_DataSet
+│   ├── angry
+│   ├── bored
+│   ├── focused
+│   └── neutral
 ├── models
 │   ├── B16_N12_FC4_K3_AP20
 │   ├── B16_N12_FC4_K5_AP20
@@ -37,10 +60,14 @@ Note: due the Large size of state dictionary of models the models parameters are
 │   ├── B32_N8_FC2_K7_AP20
 │   ├── results.csv
 │   └── Untitled.ipynb
+├── predict.py
+├── pred_resutls.csv
 ├── __pycache__
 │   └── utils.cpython-310.pyc
 ├── README
+├── trainPredict.py
 ├── train.py
 └── utils.py
+
 
 

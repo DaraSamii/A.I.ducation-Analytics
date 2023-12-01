@@ -2,6 +2,7 @@ This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 A level-1 auxiliary file: part1.aux
+A level-1 auxiliary file: part2.aux
 A level-1 auxiliary file: plots.aux
 The style file: ieeetr.bst
 Database file #1: bib.bib
@@ -9,7 +10,7 @@ Too many commas in name 1 of "Dumitru, Ian Goodfellow, Will Cukierski, Yoshua Be
 while executing---line 969 of file ieeetr.bst
 You've used 5 entries,
             1876 wiz_defined-function locations,
-            509 strings with 4764 characters,
+            510 strings with 4773 characters,
 and the built_in function-call counts, 1668 in all, are:
 = -- 136
 > -- 105

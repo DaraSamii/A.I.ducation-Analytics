@@ -2,7 +2,8 @@
 \usepackage[notransparent]{svg}
 \usepackage{svg-extract}
 \usepackage{hyperref}
-
+\usepackage{adjustbox}
+\usepackage{multirow}
 \hypersetup{
 	colorlinks=true,
 	linkcolor=blue,
@@ -58,270 +59,149 @@
 \newpage
 
 \include{part1.tex}
+\include{part2.tex}
+\include{plots.tex}
+\chapter{Fine Tune and Bias Analysis}
 
-\chapter{Training Models}
+In the preceding chapter, it was determined that among different variations of the ResNet model, the configuration with a kernel size of 5, featuring 8 residual blocks, 2 fully connected layers, and 16 channels in each block, achieved the highest accuracy compared to other model variants. In this chapter, the model will undergo more robust training by employing K-fold splitting to achieve a more accurate assessment. Subsequently, a sample of the dataset was labeled according to gender and age, and a bias analysis was conducted on these labeled samples.
+\section{K-fold}
 
-In Section 1, we created a dataset consisting of 14,831 samples. The data split ratios were chosen as 70\%, 15\%, and 15\% for the training, validation, and test sets, respectively. This resulted in 10,382 samples for training, 2,225 samples for validation, and 2,224 samples for testing.
-
-To enhance the diversity of our training data and improve the robustness of the model, we applied two augmentation techniques during training:
-
-\begin{itemize}
-    \item \textbf{Horizontal Flip:} Images were horizontally flipped with a probability of $0.5$. This augmentation helps the model learn features invariant to left-right orientation changes.
-    
-    \item \textbf{Random Rotation:} Images were randomly rotated between $-10$ and $10$ degrees. This augmentation introduces variations in object orientations, aiding the model in becoming more rotation-invariant.
-\end{itemize}
-
-\section{CNN architecture}
-
-Implementation of the models is conducted in the PyTorch library\cite{torch}. 12 distinct CNN-based models are introduced to proficiently categorize images into 4 classes (Angry, Focused, Bored, Neutral). The architectural share common hyperparameters, including learning rate, training epochs, batch size, optimizer, and loss function, meticulously detailed in Table \ref{tab:hyper}.
+The K-fold train-test split was employed to attain more accurate results. It is evident that the metrics for all 10 folds are closely aligned. The highest accuracy was observed during the 8th fold, registering at $0.6618$ percent.
 
 \begin{table}[h]
-
-\centering
-\caption{Hyper Parameters used in Training}
-\begin{tabular}{|c|c|}
-\hline
-Parameter        & Values      \\
-\hline
-Learning Rate    & 0.001       \\
-Epochs           & 100         \\
-Batch Size       & 64          \\
-Optimizer        & Adam        \\
-Loss Function    & Cross-Entropy\\
-Weight Decay     & 0.0001      \\
-\hline
-\end{tabular}
-\label{tab:hyper}
+	\centering
+	\caption{Table of K-Fold Macro Metrics}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{fold} & \textbf{Max Accuracy} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} \\ \hline
+		0       & 0.648218  & 0.649344  & 0.651463  & 0.647351  \\ \hline
+		1       & 0.652767  & 0.655904  & 0.661843  & 0.655096  \\ \hline
+		2       & 0.636088  & 0.641474  & 0.638708  & 0.63829   \\ \hline
+		3       & 0.645944  & 0.65147   & 0.656257  & 0.651095  \\ \hline
+		4       & 0.633055  & 0.632776  & 0.639112  & 0.632137  \\ \hline
+		5       & 0.648218  & 0.653172  & 0.667303  & 0.652077  \\ \hline
+		6       & 0.625474  & 0.62449   & 0.649467  & 0.626003  \\ \hline
+		7       & 0.633813  & 0.635683  & 0.651144  & 0.637339  \\ \hline
+		8       & \textbf{0.661865}  & 0.660588  & 0.65694   & 0.657756  \\ \hline
+		9       & 0.636846  & 0.642635  & 0.655244  & 0.643859  \\ \hline \hline
+		Average & 0.6422288 & 0.6447536 & 0.6527481 & 0.6441003 \\ \hline
+	\end{tabular}
 \end{table}
 
-The overall architecture of the models, illustrated in Fig. \ref{fig:resblock}, comprises three fundamental components:
+\begin{table}[]
+	\centering
+	\caption{Table of K-Fold Micro Metrics}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{fold} & \textbf{Max Accuracy} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} \\ \hline
+		0       & 0.648218  & 0.648218  & 0.648218  & 0.648218  \\ \hline
+		1       & 0.652767  & 0.652767  & 0.652767  & 0.652767  \\ \hline
+		2       & 0.636088  & 0.636088  & 0.636088  & 0.636088  \\ \hline
+		3       & 0.645944  & 0.645944  & 0.645944  & 0.645944  \\ \hline
+		4       & 0.633055  & 0.633055  & 0.633055  & 0.633055  \\ \hline
+		5       & 0.648218  & 0.648218  & 0.648218  & 0.648218  \\ \hline
+		6       & 0.625474  & 0.625474  & 0.625474  & 0.625474  \\ \hline
+		7       & 0.633813  & 0.633813  & 0.633813  & 0.633813  \\ \hline
+		8       & \textbf{0.661865}  & 0.661865  & 0.661865  & 0.661865  \\ \hline
+		9       & 0.636846  & 0.636846  & 0.636846  & 0.636846  \\ \hline
+		Average & 0.6422288 & 0.6422288 & 0.6422288 & 0.6422288 \\ \hline
+	\end{tabular}
+\end{table}
 
+\section{Bias Analysis}
+
+Approximately 700 images were randomly selected for each emotion. Since the original dataset lacked labels, manual annotation was performed to determine the age and gender of each face. The specific breakdown for the sample images is as follows:
 \begin{enumerate}
-    \item \textbf{ResBlocks:} These form the initial segment of the models and were configured with depths of 4 and 8 layers. Convolutional layers within the ResBlocks utilized two configurations of 16 and 32 channels.
-
-    For the ResBlock configuration, kernel sizes of $(3 \times 3)$, $(5 \times 5)$, and $(7 \times 7)$ were employed. Corresponding padding values of 1, 2, and 3 were used to ensure the output dimensions matched the input dimensions. Convolutional blocks within the ResBlocks were set to a striding of 1.
-    \begin{itemize}
-        \item \textbf{Kernel Sizes and Padding:}
-        \begin{itemize}
-            \item $(3\times 3)$: Padding was set to 1.
-            \item $(5\times 5)$: Padding was set to 2.
-            \item $(7\times 7)$: Padding was set to 3.
-        \end{itemize}
-    \end{itemize}
-    \item \textbf{Average Pooling and Flattening:} Following the ResBlocks, the output underwent Average Pooling to achieve a final size of $(20 \times 20)$.
-    
-    \item \textbf{Fully Connected Layers:} The final part of the model consisted of fully connected layers. The number of these layers was dynamically correlated with the number of ResBlocks, always maintaining a ratio of one-third of the ResBlocks, resulting in a range of 1 to 3 layers.
+	\item Angry images:  711
+	\item Bored images: 634
+	\item Focused images: 618
+	\item Neutral images: 747
 \end{enumerate}
 
-
-\begin{figure}[h]
-    \centering
-    \includesvg[width=1\linewidth]{./imgs/resnet}
-    \caption{Schematic of Model Architecture}
-    \label{fig:resblock}
-\end{figure}
-
-\subsection{Resblock}
-Residual Networks, commonly known as ResNets, have become a cornerstone in deep learning architectures, particularly for image recognition tasks. At the heart of ResNets are residual blocks, a fundamental building block designed to address the challenge of training very deep neural networks\cite{he2016deep}. A residual block introduces a shortcut or a "skip connection" that allows the network to learn residual functions. Mathematically, given an input $x$, the output of a residual block can be represented as $F(x) + x$, where $F(x)$ is the learned residual. This architecture facilitates the flow of information through the network, mitigating the vanishing gradient problem and enabling the training of exceedingly deep networks. 
+The distribution of images based on gender and age is illustrated in Figure \ref{fig:bias}. The percentage of facial expressions between females and males is found to be insubstantial, suggesting that the model distinguishes emotions adequately with minimal disparity between the two genders. Conversely, the proportion of child images is notably smaller than that of adult images, raising suspicions of significant disparities in the model's performance.
 
 \begin{figure}[h]
 	\centering
-	\includesvg[width=0.3\linewidth]{./imgs/resblock}
-	\caption{Resblock}
-	\label{fig:resblock}
+	\begin{subfigure}{0.48\linewidth}
+		\centering
+		\includesvg[width=\linewidth]{imgs/gender.svg}
+		\caption{Distribution of images under the classification of gender}
+		\label{fig:gender}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+		\centering
+		\includesvg[width=\linewidth]{imgs/age.svg}
+		\caption{Distribution of images under the classification of gender}
+		\label{fig:age}
+	\end{subfigure}
+\caption{Distribution of images among the different classification}
+\label{fig:bias}
 \end{figure}
 
-\subsection{Convolution Layers}
-Each convolution layer systematically applies convolution operations to input data, sequentially transmitting results to subsequent layers.
-
-\subsection{Activation Functions}
-Rectified Linear Unit (ReLU) is a widely used activation function in neural networks. It is defined as $f(x) = \max(0, x)$, keeping positive values unchanged and setting negative values to zero. ReLU introduces non-linearity to neural networks, aiding in learning complex patterns. Its simplicity and ability to address the vanishing gradient problem make it a popular choice.
-
-\subsection{BatchNorm2D}
-Batch Normalization (BatchNorm) is a widely used technique in deep learning to improve the training stability and convergence of neural networks. It operates by normalizing the input of a layer across a mini-batch of data. For a given mini-batch of size \(m\), the BatchNorm operation for a specific feature \(x\) can be expressed as follows:
-
-\begin{equation}
-    \hat{x} = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}
-\end{equation}
-
-where \(\hat{x}\) is the normalized input, \(\mu\) is the mean, \(\sigma^2\) is the variance, and \(\epsilon\) is a small constant to avoid division by zero.
-
-
-\subsection{Pooling Layers}
-The inclusion of pooling layers is indispensable, serving to reduce the dimensions of feature maps. This reduction minimizes trainable parameters, expediting computations without compromising crucial features. Additionally, pooling layers contribute significantly to averting overfitting risks in expansive networks, bolstering overall robustness and generalization in facial expression detection models.
-
-
-\subsection{Flattening Layer}
-Following convolutional and pooling operations, a Flatten layer is introduced in the model architecture. This critical layer transforms entire filter maps into a flattened representation, providing a comprehensive set of features to the subsequent classifier.
-
-\subsection{Fully-Connected Layers}
-In a fully-connected layer, each neuron or node is connected to every neuron in the previous layer, forming a dense matrix of weights. Given an input vector \(x\) and weight matrix \(W\), the output \(y\) of a fully-connected layer can be expressed as:
-
-\begin{equation}
-    y = \sigma(Wx + b)
-\end{equation}
-
-where \(W\) is the weight matrix, \(b\) is the bias vector, and \(\sigma\) is the activation function. The matrix multiplication \(Wx\) captures the weighted sum of inputs, and the bias term \(b\) is added.
-
-\section{Training Process}
-After creating a Training Data Loader, Validation DataLoader and Test Data Loader, a Learner class was created with couples the data loader and model. the learner handles traning of the model, logging the metrics, and loss and saves and load the trained models specified. The Learner fallacy is taken from Fast.ai\cite{howard2018fastai}. each model was trained by train dataset an epoch, followed by evaluted the model with validation dataset and if a new accuracy was found the model would be saved. An overall flow-chart of the training and evaluating process is shown in Fig.\ref{fig:train}.
-
-\begin{figure}
-    \centering
-    \includesvg[width=\linewidth]{imgs/train.svg}
-    \caption{Flow-chart of training and evaluation of the models}
-    \label{fig:train}
-\end{figure}
-\section{Metrics}
-
-The performance of the model is evaluated using following metrics:
-
-\begin{equation}
-    \text{Accuracy} = \frac{T_P + T_N}{T_P + T_N + F_P + F_N}
-\end{equation}
-
-Accuracy measures the overall correctness of the model's predictions.
-
-\begin{equation}
-    \text{Precision} = \frac{T_P}{T_P + F_P}
-\end{equation}
-
-Precision represents the accuracy of the positive predictions made by the model.
-
-\begin{equation}
-    \text{Recall} = \frac{T_P}{T_P + F_N}
-\end{equation}
-
-Recall, also known as sensitivity, gauges the model's ability to capture all positive instances.
-
-\begin{equation}
-    \text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
-\end{equation}
-
-The F1 score is the harmonic mean of precision and recall, providing a balanced assessment of the model's performance.
-
-In the above equations, $T_P$ represents True Positive, $T_N$ represents True Negative, $F_P$ represents False Positive, and $F_N$ represents False Negative.
-
-
-\section{Evaluation}
-
-
-\subsection{Hyper-paremeter's effect}
-As illustrated in Fig.~\ref{fig:KvB} and Fig.~\ref{fig:KvN}, accuracy trends come to the forefront, highlighting the superiority of models kernel size  of$ (5\times5)$, over alternative sizes of $(3\times3)$ and $(7\times7)$.
-
-Examining Fig.~\ref{fig:NvK} and Fig.~\ref{fig:NvB}, a positive correlation emerges between an increased number of residual blocks and heightened accuracy. Notably, models with 8 ResBlocks outperform those with 4 ResBlocks.
-
-Concerning the number of channels within each ResBlock, no significant correlation is observed with accuracy. In Fig.~\ref{fig:KvB}, the relationship is not straightforward, as models with a kernel size of $(5\times5)$ and 16 channels achieve higher accuracy compared to those with 32 channels. However, this trend does not hold for kernel size $(3\times3)$.
-
-Remarkably, our model configuration B16{\_}N8{\_}FC2{\_}K5{\_}AP20 stands out as the pinnacle of performance, boasting an accuracy of 0.623371. The complete model architectures and respective accuracy values for each model are presented in Table \ref{tab:results}.
 
 \begin{table}[]
-\caption{Summary of Model Architecture and the represented Accuracy}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-\hline
-Model Name & K Size & Block & Channels & FCs & Accuracy & Recall & Precision & F1 Score \\ \hline
-B16\_N4\_FC1\_K3\_AP20 & 3 & 4 & 16 & 1 & 0.582472 & 0.581015 & 0.599142 & 0.585643 \\ \hline
-B32\_N4\_FC1\_K3\_AP20 & 3 & 4 & 32 & 1 & 0.59236  & 0.595532 & 0.622576 & 0.596638 \\ \hline
-B16\_N8\_FC2\_K3\_AP20 & 3 & 8 & 16 & 2 & 0.604494 & 0.600417 & 0.620104 & 0.59736  \\ \hline
-B32\_N8\_FC2\_K3\_AP20 & 3 & 8 & 32 & 2 & 0.622022 & 0.618432 & 0.650313 & 0.622679 \\ \hline
-B16\_N4\_FC1\_K5\_AP20 & 5 & 4 & 16 & 1 & 0.596404 & 0.598403 & 0.612813 & 0.595999 \\ \hline
-B32\_N4\_FC1\_K5\_AP20 & 5 & 4 & 32 & 1 & 0.59236  & 0.595048 & 0.629317 & 0.590056 \\ \hline
-B16\_N8\_FC2\_K5\_AP20 & 5 & 8 & 16 & 2 & \textbf{0.623371} & 0.621407 & 0.654631 & 0.611707 \\ \hline
-B32\_N8\_FC2\_K5\_AP20 & 5 & 8 & 32 & 2 & 0.612135 & 0.615304 & 0.652023 & 0.613317 \\ \hline
-B16\_N4\_FC1\_K7\_AP20 & 7 & 4 & 16 & 1 & 0.58382  & 0.580199 & 0.619654 & 0.579667 \\ \hline
-B32\_N4\_FC1\_K7\_AP20 & 7 & 4 & 32 & 1 & 0.577978 & 0.582606 & 0.592769 & 0.584087 \\ \hline
-B16\_N8\_FC2\_K7\_AP20 & 7 & 8 & 16 & 2 & 0.617978 & 0.611103 & 0.627087 & 0.609395 \\ \hline
-B32\_N8\_FC2\_K7\_AP20 & 7 & 8 & 32 & 2 & 0.607191 & 0.610399 & 0.651253 & 0.608782 \\ \hline
-\end{tabular}
-\label{tab:results}
+	\centering
+	\caption{Model's metric on different genders and ages}
+	\begin{tabular}{|c|c|c|cc|cc|cc|}
+		\hline
+		\multirow{2}{*}{Attribute} &
+		\multirow{2}{*}{Group} &
+		\multirow{2}{*}{Accuracy} &
+		\multicolumn{2}{c|}{precision} &
+		\multicolumn{2}{c|}{recall} &
+		\multicolumn{2}{c|}{F1 score} \\ \cline{4-9} 
+		&         &        & \multicolumn{1}{c|}{macro}  & micro  & \multicolumn{1}{c|}{macro}  & micro  & \multicolumn{1}{c|}{macro}  & micro  \\ \hline
+		\multirow{3}{*}{gender} & male    & 0.7651 & \multicolumn{1}{c|}{0.7568} & 0.7651 & \multicolumn{1}{c|}{0.7449} & 0.7651 & \multicolumn{1}{c|}{0.7484} & 0.7651 \\ \cline{2-9} 
+		& female  & 0.7489 & \multicolumn{1}{c|}{0.7495} & 0.7489 & \multicolumn{1}{c|}{0.7609} & 0.7489 & \multicolumn{1}{c|}{0.7456} & 0.7489 \\ \cline{2-9} 
+		& average & 0.7570 & \multicolumn{1}{c|}{0.7531} & 0.7570 & \multicolumn{1}{c|}{0.7529} & 0.7570 & \multicolumn{1}{c|}{0.7470} & 0.7570 \\ \hline \hline
+		\multirow{3}{*}{age}    & Adult   & 0.7687 & \multicolumn{1}{c|}{0.7651} & 0.7687 & \multicolumn{1}{c|}{0.7607} & 0.7687 & \multicolumn{1}{c|}{0.7602} & 0.7687 \\ \cline{2-9} 
+		& Child   & 0.7090 & \multicolumn{1}{c|}{0.6998} & 0.7090 & \multicolumn{1}{c|}{0.7313} & 0.7090 & \multicolumn{1}{c|}{0.6969} & 0.7090 \\ \cline{2-9} 
+		& average & 0.7388 & \multicolumn{1}{c|}{0.7324} & 0.7388 & \multicolumn{1}{c|}{0.7460} & 0.7388 & \multicolumn{1}{c|}{0.7286} & 0.7388 \\ \hline
+	\end{tabular}
+	\label{tab:bias}
 \end{table}
 
 
+As anticipated, as indicated in Table \ref{tab:bias}, it is evident that the model's performance is significantly more accurate when the faces belong to adults rather than children, showing an approximate 7 percent difference. Conversely, the model's metrics on female and male faces exhibit relative similarity.
+
+\subsection{mitigating and fixing biases}
+
+
+The sole observed bias pertains to the model exhibiting lower accuracy on images featuring children's faces. In response, a strategic approach was adopted, involving an increased emphasis on images labeled as 'child' during the model's retraining process. The resulting dataset, enriched with a greater abundance of children's images, is visually represented in Figure \ref{fig:child}. Following the retraining, with a heightened focus on images of children, discernible improvements in the model's performance on children's faces are evident. Notably, the achieved accuracy levels on children's faces are now comparable to those observed on adult faces.
+
+
+
 \begin{figure}
-    \centering
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includesvg[width=\linewidth]{imgs/BvK.svg}
-        \caption{Accuracy scores compared to ResBlock number of Channels and  Kernel Sizes }
-        \label{fig:BvK}
-    \end{subfigure}
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includesvg[width=\linewidth]{imgs/BvN.svg}
-        \caption{Accuracy scores compared to ResBlock number of channels and number of ResBlocks}
-        \label{fig:BvN}
-    \end{subfigure}
-
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includesvg[width=\linewidth]{imgs/KvB.svg}
-        \caption{Accuracy scores compared to Kernel Sizes and ResBlock number of Channels}
-        \label{fig:KvB}
-    \end{subfigure}
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includesvg[width=\linewidth]{imgs/KvN.svg}
-        \caption{Accuracy scores compared to Kernel Sizes and number of ResBlocks}
-        \label{fig:KvN}
-    \end{subfigure}
-
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includesvg[width=\linewidth]{imgs/NvK.svg}
-        \caption{Accuracy scores compared to Kernel Sizes and number of ResBlocks}
-        \label{fig:NvK}
-    \end{subfigure}
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includesvg[width=\linewidth]{imgs/NvB.svg}
-        \caption{Accuracy scores compared to ResBlock's number of channels and number of ResBlocks}
-        \label{fig:NvB}
-    \end{subfigure}
-
-    \caption{Overall Caption for All Figures}
-    \label{fig:overall}
+	\includesvg[width=\linewidth]{imgs/child.svg}
+	\caption{Distribution of images under the classification of age in retraining data}
 \end{figure}
 
-
-
-
-\subsection{Confusion Matrix Analysis}
-\include{plots.tex}
-
-The Confusion Matrix for all models reveals that they generally perform well in predicting "Angry" images, achieving high accuracy. This is attributed to the distinct features of angry faces, such as large eyes, open mouths, and an aggressive facial expression.
-
-Furthermore, the models demonstrate proficiency in correctly classifying "Bored" images, as the bored facial expression, characterized by downcast eyes and closed, straight mouths, is easily distinguishable.
-
-However, challenges arise in distinguishing between "Focused" and "Neutral" expressions. This is reasonable, considering that both expressions involve eyes staring at the camera and closed lips. Even at a human level, differentiation between focused and neutral faces proves challenging.
-
-Examining the Loss plots, a notable trend emerges: as the model's layer count decreases, there is an increased risk of overfitting. With each training epoch, the validation loss consistently rises. Conversely, as the model size increases, the validation loss remains stable and fluctuates less compared to models with fewer layers.
-
-
-\section{Conclusions and Forward Look:}
-
-
-Addressing bias is imperative. Our dataset exhibits bias toward gender, age, and race, emphasizing the need for a balanced dataset for enhanced real-time application performance.
-
-Furthermore, exploring advanced models like ResNets, R-CNNs, Fast RCNNs, Faster R-CNN, and YOLO could further enhance overall model performance.
-
-
-Additionally, better labeling of the dataset and increasing the quality of the dataset might be significantly helpful.
-
-Finally, the key notes of the model comparison are as follows:
-
-\begin{itemize}
-    \item Models with $(5\times5)$ kernel sizes outperform $(3\times3)$ and $(7\times7)$.
-    \item Positive correlation observed between ResBlocks and accuracy; 8 ResBlocks outperform 4.
-    \item No significant correlation found between channel count in ResBlocks and accuracy.
-    \item Model \texttt{B16\_N8\_FC2\_K5\_AP20} excels with an accuracy of 0.623371.
-    \item Confusion Matrix shows strong performance in predicting "Angry" and "Bored" expressions.
-    \item Difficulty distinguishing between "Focused" and "Neutral" expressions.
-    \item Loss plots indicate increased overfitting risk with fewer layers; larger models show more stability.
-\end{itemize}
-
-\chapter*{Acknowledgements}
+After retraining the data and evaluating the model with labeled data, it is evident that the nearly 7 percent gap between children and adults has been closed. The final model demonstrates a fair absence of bias.The final Bias Table can be seen in \ref{tab:rebias}
+ \begin{table}[h]
+ 	\centering
+ 	\caption{Retrained Model performance on different genders and ages}
+ 	\begin{tabular}{|c|c|c|cc|cc|cc|}
+ 		\hline
+ 		\multirow{2}{*}{Attribute} &
+ 		\multirow{2}{*}{Group} &
+ 		\multirow{2}{*}{Accuracy} &
+ 		\multicolumn{2}{c|}{precision} &
+ 		\multicolumn{2}{c|}{recall} &
+ 		\multicolumn{2}{c|}{F1 score} \\ \cline{4-9} 
+ 		&         &        & \multicolumn{1}{c|}{macro}  & micro  & \multicolumn{1}{c|}{macro}  & micro  & \multicolumn{1}{c|}{macro}  & micro  \\ \hline
+ 		\multirow{3}{*}{gender} & male    & 0.7675 & \multicolumn{1}{c|}{0.7450} & 0.7675 & \multicolumn{1}{c|}{0.7061} & 0.7675 & \multicolumn{1}{c|}{0.7307} & 0.7675 \\ \cline{2-9} 
+ 		& female  & 0.7565 & \multicolumn{1}{c|}{0.7481} & 0.7565 & \multicolumn{1}{c|}{0.7624} & 0.7565 & \multicolumn{1}{c|}{0.7438} & 0.7565 \\ \cline{2-9} 
+ 		& average & 0.7620 & \multicolumn{1}{c|}{0.7466} & 0.7620 & \multicolumn{1}{c|}{0.7342} & 0.7620 & \multicolumn{1}{c|}{0.7372} & 0.7620 \\ \hline
+ 		\multirow{3}{*}{age}    & Adult   & 0.7699 & \multicolumn{1}{c|}{0.7768} & 0.7699 & \multicolumn{1}{c|}{0.7844} & 0.7699 & \multicolumn{1}{c|}{0.7476} & 0.7699 \\ \cline{2-9} 
+ 		& Child   & 0.7507 & \multicolumn{1}{c|}{0.7465} & 0.7507 & \multicolumn{1}{c|}{0.7547} & 0.7507 & \multicolumn{1}{c|}{0.7401} & 0.7507 \\ \cline{2-9} 
+ 		& average & 0.7603 & \multicolumn{1}{c|}{0.7617} & 0.7603 & \multicolumn{1}{c|}{0.7695} & 0.7603 & \multicolumn{1}{c|}{0.7438} & 0.7603 \\ \hline
+ 	\end{tabular}
+ 	\label{tab:rebias}
+ \end{table}
+\chapter*{Acknowledgments}
 
 This project was undertaken as part of the requirements for COMP 6721: Applied Artificial Inteligence, lectured by Professor Rene Witte at Concordia University, Montreal, Canada. The report was meticulously prepared using the \LaTeX\ typesetting language on the \href{https://www.overleaf.com/}{Overleaf} platform. Additionally, schematic diagrams were crafted using \href{https://app.diagrams.net/}{draw.io}.Compute Canada Alliance, Cedar Computer located in Simon Fraser University, Vancouver, Canada, was used to perform High Performance Computings and training the models.
+
 
 \bibliographystyle{ieeetr}
 \bibliography{bib} 
