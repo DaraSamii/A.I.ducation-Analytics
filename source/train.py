@@ -43,24 +43,26 @@ if __name__ == "__main__":
         for n in num_layers:
             for k in kernels:    
                 F = int(n/3)   
+                # create model and learner objects and train the model on the training set and evaluate it on the validation set
                 model_dir = os.path.join(model_path,"B{}FC{}K{}AP{}".format(n,F,k,AP))
                 os.mkdir(model_dir)
                 model_name = os.path.join(model_dir,"B{}FC{}K{}AP{}".format(n,F,k,AP))
                 model = ResNet(num_classes=4,num_channel=B,num_blocks=n,num_fc_layers=F,avg_pool_size=AP)
-
+                # save best model path and name
                 save_best_path = os.path.join(model_path,model_name)
                 learn = Learner(train_dl, val_dl, model,labels_name=ds_labels,save_best=model_name,log_path=model_name)
-
+                # load the best model
                 learn.train_eval(epochs=epochs,lr=lr,wd = wd)
 
                 learn.plot_metrics_macro(model_name + "metrics_mocro.svg")
                 learn.plot_metrics_micro(model_name + "metrics_micro.svg")
                 learn.plot_loss(model_name + "Loss.svg")
                 
+                # create confusion matrix for validation and test sets
                 print("creating confusion matrix for validation")
                 learn.predict(val_dl)
                 learn.plotConfisuionMatrix(model_name + "confMatrixVal.svg")
-
+                # create confusion matrix for validation and test sets
                 print("creating confusion matrix for Test")
                 learn.predict(test_dl)
                 learn.plotConfisuionMatrix(model_name + "confMatrixTest.svg")
