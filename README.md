@@ -111,5 +111,61 @@ key notes of the model comparison are as follows:
 ![](./LaTeX/imgs/BvN.svg)
 ![](./LaTeX/imgs/NvK.svg)
 
+## Fine Tuning
+
+### K-Fold
+
+The K-fold train-test split was employed to attain more accurate results. It is evident that the metrics for all 10 folds are closely aligned. The highest accuracy was observed during the 8th fold, registering at 0.6618 percent.
+
+|fold|Max Accuracy|Recall|Precision|F1 Score|
+|:---:|:---:|:---:|:---:|:---:|
+|0|0.648218|0.649344|0.651463|0.647351|
+|1|0.652767|0.655904|0.661843|0.655096|
+|2|0.636088|0.641474|0.638708|0.63829|
+|3|0.645944|0.65147|0.656257|0.651095|
+|4|0.633055|0.632776|0.639112|0.632137|
+|5|0.648218|0.653172|0.667303|0.652077|
+|6|0.625474|0.62449|0.649467|0.626003|
+|7|0.633813|0.635683|0.651144|0.637339|
+|8|0.661865|0.660588|0.65694|0.657756|
+|9|0.636846|0.642635|0.655244|0.643859|
+|Average|0.6422288|0.6447536|0.6527481|0.6441003|
+
+### Bias Analysis
+
+Approximately 700 images were randomly selected for each emotion. Since the original dataset lacked labels,
+manual annotation was performed to determine the age and gender of each face. The specific breakdown for the
+sample images is as follows:
+
+1. Angry images: 711
+2. Bored images: 634
+3. Focused images: 618
+4. Neutral images: 747
+
+![](./LaTeX/imgs/age.svg) ![](./LaTeX/imgs/gender.svg)
+
+Note: 'a' denotes to 'adult', 'c' denotes to 'child', 'm' denotes to 'male' and 'f' denotes to 'female.
+
+|Attribute|Group|Accuracy|
+|:---:|:---:|:---:|
+| |male|0.7651|
+|gender|female|0.7489|
+| |average|0.757|
+| |Adult|0.7687|
+|age|Child|0.709|
+| |average|0.7388|
+
+
+The sole observed bias pertains to the model exhibiting lower accuracy on images featuring children’s faces. In response, a strategic approach was adopted, involving an increased emphasis on images labeled as ’child’ during the model’s retraining process. After retraining the model with more augmented child images, the achieved accuracy levels on children’s faces are now comparable to those observed on adult faces.
+
+
+|Attribute|Group|Accuracy|
+|:---:|:---:|:---:|
+| |male|0.7675|
+|gender|female|0.7565|
+| |average|0.762|
+| |Adult|0.7699|
+|age|Child|0.7507|
+| |average|0.7603|
 
 *For more details, refer to the complete [Project Report](./Project_Report.pdf).*
