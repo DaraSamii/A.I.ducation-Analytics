@@ -69,4 +69,10 @@ Note: due the Large size of state dictionary of models the models parameters are
 └── utils.py "used by Cleaning.py containing utility functions"
 
 
-
+## Steps to run the codes:
+1. cleaning.py
+2. train.py
+3. trainPredict.py (put the desired hyperparameters in the cofig part for further training, the predicting will be done in the code as well)
+3. copy the desired model to `best_model` directory
+4. run Predict.py
+5. retrain (loads the model in `best_model` directory and trains it with images in `Gender_Age_DataSet`
