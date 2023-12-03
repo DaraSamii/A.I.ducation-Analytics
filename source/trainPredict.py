@@ -21,7 +21,6 @@ if __name__ == "__main__":
     kfold = KFold(n_splits=k_folds, shuffle=True)
 
     for fold, (train_idx, valid_idx) in enumerate(kfold.split(ds)):
-        if fold == 8:
             train_subsampler = T.utils.data.SubsetRandomSampler(train_idx)
             valid_subsampler = T.utils.data.SubsetRandomSampler(valid_idx)
 
