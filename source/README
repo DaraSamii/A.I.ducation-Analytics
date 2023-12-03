@@ -65,6 +65,7 @@ Note: due the Large size of state dictionary of models the models parameters are
 ├── README
 ├── trainPredict.py "training model and iteratin different folds creating `folds` directory and saving logs and best model in each fold directory" 
 ├── train.py "training model and iteratin different architechters creating `models` directory" 
+├── retrain.py "uses the data in Gender_age DataSet to retrain the model and fixing the gap between adult and child accuracy"
 └── utils.py "used by Cleaning.py containing utility functions"
 
 
