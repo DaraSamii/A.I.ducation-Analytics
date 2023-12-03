@@ -9,21 +9,21 @@
 **
 Note: due the Large size of state dictionary of models the models parameters are not incuded.
 .
-├── best_model
-├── classes.py
-├── Cleaned_data.csv
+├── best_model: the best model trainied by `train.py` and `trainPredict.py` should be put in this directory and the `Predict.py` code will search and load the model from this directory
+├── classes.py: Learner class, Dataloader class and Resnet model are in this file
+├── Cleaned_data.csv 
 ├── cleaning.ipynb
-├── cleaning.py
+├── cleaning.py "runing this code deletes all low quality images and generally cleans and stores the Data"
 ├── DataSet
 │   ├── angry
 │   ├── bored
 │   ├── focused
 │   └── neutral
-├── fer2013
+├── fer2013: original datasets and their citations and ways to download and use
 │   ├── fer2013.csv
 │   ├── fer2013new.csv
 │   └── README
-├── folds
+├── folds : contain 10 models and the training logs for 10 folds
 │   ├── B16_N8_FC2_K5_AP20_fold0
 │   ├── B16_N8_FC2_K5_AP20_fold1
 │   ├── B16_N8_FC2_K5_AP20_fold2
@@ -37,12 +37,12 @@ Note: due the Large size of state dictionary of models the models parameters are
 │   ├── create_fold_results.ipynb
 │   ├── create_fold_results.py
 │   └── fold_results.csv
-├── Gender_Age_DataSet
+├── Gender_Age_DataSet: a labeled dataset which will be used to mitigate and fix biases
 │   ├── angry
 │   ├── bored
 │   ├── focused
 │   └── neutral
-├── models
+├── models: 12 models and their training logs and metrics plots with different hypter-parameters
 │   ├── B16_N12_FC4_K3_AP20
 │   ├── B16_N12_FC4_K5_AP20
 │   ├── B16_N12_FC4_K7_AP20
@@ -60,14 +60,12 @@ Note: due the Large size of state dictionary of models the models parameters are
 │   ├── B32_N8_FC2_K7_AP20
 │   ├── results.csv
 │   └── Untitled.ipynb
-├── predict.py
-├── pred_resutls.csv
-├── __pycache__
-│   └── utils.cpython-310.pyc
+├── predict.py "Used to predict the labeled dataset to find and assess model for its biases toward gender and age"
+├── pred_resutls.csv 
 ├── README
-├── trainPredict.py
-├── train.py
-└── utils.py
+├── trainPredict.py "training model and iteratin different folds creating `folds` directory and saving logs and best model in each fold directory" 
+├── train.py "training model and iteratin different architechters creating `models` directory" 
+└── utils.py "used by Cleaning.py containing utility functions"
 
 
 
