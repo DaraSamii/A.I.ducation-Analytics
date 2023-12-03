@@ -59,7 +59,7 @@ After cleaning and labeling, the dataset comprises:
 - Focused: 4553 samples
 - Bored: 3960 samples
 
-View the bar-plot of images per desired emotion in [./imgs/final_countplot.svg](./imgs/final_countplot.svg).
+View the bar-plot of images per desired emotion in [./imgs/final_countplot.svg](./LaTeX/imgs/final_countplot.svg).
 
 Sample images for each emotion are available in [./imgs/](https://github.com/DaraSamii/A.I.ducation-Analytics/tree/main/imgs).
 
