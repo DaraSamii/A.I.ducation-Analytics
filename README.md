@@ -1,21 +1,5 @@
 # A.I.ducation Analytics
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Data Pre-Processing](#data-pre-processing)
-  - [Dataset](#dataset)
-    - [Facial Expression Recognition (FER) 2013 Dataset](#facial-expression-recognition-fer-2013-dataset)
-    - [FER+](#fer)
-  - [Data Cleaning](#data-cleaning)
-    - [Eliminating Images Labeled as 'Not Face'](#eliminating-images-labeled-as-not-face)
-    - [Eliminating Images Labeled as 'Unknown'](#eliminating-images-labeled-as-unknown)
-  - [Labeling](#labeling)
-    - [Anger](#anger)
-    - [Neutral](#neutral)
-    - [Focused](#focused)
-    - [Bored](#bored)
-  - [Dataset Visualization](#dataset-visualization)
-
 ## Project Overview
 
 This project, undertaken as part of COMP 6721 Applied Artificial Intelligence, explores the realm of facial expression recognition. The primary objective is to develop an understanding of emotions depicted in facial images and create a robust model for emotion recognition. The project focuses on preprocessing a comprehensive dataset, combining FER2013 and FER+, and enhancing it to facilitate accurate training and evaluation of emotion recognition models.
@@ -59,8 +43,39 @@ After cleaning and labeling, the dataset comprises:
 - Focused: 4553 samples
 - Bored: 3960 samples
 
-View the bar-plot of images per desired emotion in [./imgs/final_countplot.svg](./LaTeX/imgs/final_countplot.svg).
+View the bar-plot of images per desired emotion in 
 
-Sample images for each emotion are available in [./imgs/](https://github.com/DaraSamii/A.I.ducation-Analytics/tree/main/imgs).
+![coutplot](./LaTeX/imgs/final_countplot.svg).
+
+## Training Models
+In Section 1, we created a dataset consisting of 14,831 samples. The data split ratios were chosen as 70%, 15%, and 15% for the training, validation, and test sets, respectively. This resulted in 10,382 samples for training, 2,225 samples for validation, and 2,224 samples for testing.
+
+### Augmentation
+To enhance the diversity of our training data and improve the robustness of the model, we applied two aug- mentation techniques during training:
+ - Horizontal Flip with a probability of 0.5
+ - Random Rotation between −10 and 10 degrees
+
+### CNN architecture
+Implementation of the models is conducted in the PyTorch library. 12 distinct CNN-based models are introduced to proficiently categorize images into 4 classes.
+
+![model](./LaTeX/imgs/resnet.svg)
+
+### Hyper-parameters
+
+| Parameter |	Values | 
+| --- | --- | 
+| Learning Rate | 0.001 |  
+| Epochs | 	100 | 
+| Batch Size | 	64 | 
+| Optimizer | 	Adam | 
+| Loss Function | Cross-Entropy|  
+| Weight Decay | 	0.0001 | 
+
+### Training Process
+After creating a Training Data Loader, Validation DataLoader and Test Data Loader, a Learner class was created with couples the data loader and model. the learner handles traning of the model, logging the metrics, and loss and saves and load the trained models specified. Each model was trained by train dataset an epoch, followed by evaluted the model with validation dataset and if a new accuracy was found the model would be saved.
+
+![training](./LaTeX/imgs/train.svg)
+
+### Hyper-paremeter’s effect
 
 *For more details, refer to the complete [Project Report](./Project_Report.pdf).*
