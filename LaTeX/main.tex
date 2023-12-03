@@ -167,13 +167,14 @@ As anticipated, as indicated in Table \ref{tab:bias}, it is evident that the mod
 \subsection{mitigating and fixing biases}
 
 
-The sole observed bias pertains to the model exhibiting lower accuracy on images featuring children's faces. In response, a strategic approach was adopted, involving an increased emphasis on images labeled as 'child' during the model's retraining process. The resulting dataset, enriched with a greater abundance of children's images, is visually represented in Figure \ref{fig:child}. Following the retraining, with a heightened focus on images of children, discernible improvements in the model's performance on children's faces are evident. Notably, the achieved accuracy levels on children's faces are now comparable to those observed on adult faces.
-
+The sole observed bias pertains to the model exhibiting lower accuracy on images featuring children's faces. In response, a strategic approach was adopted, involving an increased emphasis on images labeled as 'child' during the model's retraining process. The resulting dataset, enriched with a greater abundance of children's images, is visually represented in Figure \ref{fig:child}.
 
 
 \begin{figure}
-	\includesvg[width=\linewidth]{imgs/child.svg}
+	\centering
+	\includesvg[width=0.6\linewidth]{imgs/child.svg}
 	\caption{Distribution of images under the classification of age in retraining data}
+	\label{fig:child}
 \end{figure}
 
 After retraining the data and evaluating the model with labeled data, it is evident that the nearly 7 percent gap between children and adults has been closed. The final model demonstrates a fair absence of bias.The final Bias Table can be seen in \ref{tab:rebias}
