@@ -76,6 +76,40 @@ After creating a Training Data Loader, Validation DataLoader and Test Data Loade
 
 ![training](./LaTeX/imgs/train.svg)
 
+### Results 
+
+|Model Name|K Size|Block |Channels|FCs|Accuracy|Recall|Precision|F1 Score|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|B16 N4 FC1 K3 AP20|3|4|16|1|0.582472|0.581015|0.599142|0.585643|
+|B32 N4 FC1 K3 AP20|3|4 |32|1|0.59236|0.595532|0.622576|0.596638|
+|B16 N8 FC2 K3 AP20|3|8 |16|2|0.604494|0.600417|0.620104|0.59736|
+|B32 N8 FC2 K3 AP20|3|8 |32|2|0.622022|0.618432|0.650313|0.622679|
+|B16 N4 FC1 K5 AP20|5|4 |16|1|0.596404|0.598403|0.612813|0.595999|
+|B32 N4 FC1 K5 AP20|5|4 |32|1|0.59236|0.595048|0.629317|0.590056|
+|B16 N8 FC2 K5 AP20|5|8 |16|2|0.623371|0.621407|0.654631|0.611707|
+|B32 N8 FC2 K5 AP20|5|8 |32|2|0.612135|0.615304|0.652023|0.613317|
+|B16 N4 FC1 K7 AP20|7|4 |16|1|0.58382|0.580199|0.619654|0.579667|
+|B32 N4 FC1 K7 AP20|7|4 |32|1|0.577978|0.582606|0.592769|0.584087|
+|B16 N8 FC2 K7 AP20|7|8 |16|2|0.617978|0.611103|0.627087|0.609395|
+|B32 N8 FC2 K7 AP20|7|8 |32|2|0.607191|0.610399|0.651253|0.608782|
+
+![](./LaTeX/res_imgs/B16_N4_FC1_K3_AP20confMatrixTest.svg)
+![](./LaTeX/res_imgs/B32_N8_FC2_K3_AP20Loss.svg)
+![](./LaTeX/res_imgs/B16_N4_FC1_K3_AP20metrics_mocro.svg)
 ### Hyper-paremeter’s effect
+
+key notes of the model comparison are as follows:
+- Models with (5 × 5) kernel sizes outperform (3 × 3) and (7 × 7).
+- Positive correlation observed between ResBlocks and accuracy; 8 ResBlocks outperform 4.
+- No significant correlation found between channel count in ResBlocks and accuracy.
+- Model `B16ـN8ـFC2ـK5ـAP20` excels with an accuracy of 0.623371.
+- Confusion Matrix shows strong performance in predicting ”Angry” and ”Bored” expressions.
+- Difficulty distinguishing between ”Focused” and ”Neutral” expressions.
+- Loss plots indicate increased overfitting risk with fewer layers; larger models show more stability.
+
+![](./LaTeX/imgs/KvB.svg)
+![](./LaTeX/imgs/BvN.svg)
+![](./LaTeX/imgs/NvK.svg)
+
 
 *For more details, refer to the complete [Project Report](./Project_Report.pdf).*
