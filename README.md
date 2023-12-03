@@ -1,5 +1,8 @@
 # A.I.ducation Analytics
 
+## Table of Content
+- [Project Overview](#Project-Overview)
+- 
 ## Project Overview
 
 This project, undertaken as part of COMP 6721 Applied Artificial Intelligence, explores the realm of facial expression recognition. The primary objective is to develop an understanding of emotions depicted in facial images and create a robust model for emotion recognition. The project focuses on preprocessing a comprehensive dataset, combining FER2013 and FER+, and enhancing it to facilitate accurate training and evaluation of emotion recognition models.
