@@ -1,8 +1,31 @@
 # A.I.ducation Analytics
 
-## Table of Content
-- [Project Overview](#Project-Overview)
-- 
+1. [Project Overview](#project-overview)
+2. [Data Pre-Processing](#data-pre-processing)
+   1. [Dataset](#dataset)
+      1. [Facial Expression Recognition (FER) 2013 Dataset](#facial-expression-recognition-fer-2013-dataset)
+      2. [FER+](#fer+)
+   2. [Data Cleaning](#data-cleaning)
+      1. [Eliminating Images Labeled as 'Not Face'](#eliminating-images-labeled-as-not-face)
+      2. [Eliminating Images Labeled as 'Unknown'](eliminating-images-labeled-as-unknown)
+   3. [Labeling](#labeling)
+   4. [Dataset Visualization](#dataset-visualization)
+
+3. [Training Models](#training-models)
+   1. [Data Splitting](#data-splitting)
+   2. [Augmentation](#augmentation)
+   3. [CNN Architecture](#cnn-architecture)
+   4. [Hyper-parameters](#hyper-parameters)
+   5. [Training Process](#training-process)
+   6. [Results](#results)
+      1. [Model Comparison](#model-comparison)
+      2. [Hyper-parameter’s Effect](#hyper-parameters-effect)
+
+4. [Fine Tuning](#fine-tuning)
+   1. [K-Fold](#k-fold)
+   2. [Bias Analysis](#bias-analysis)
+
+---
 ## Project Overview
 
 This project, undertaken as part of COMP 6721 Applied Artificial Intelligence, explores the realm of facial expression recognition. The primary objective is to develop an understanding of emotions depicted in facial images and create a robust model for emotion recognition. The project focuses on preprocessing a comprehensive dataset, combining FER2013 and FER+, and enhancing it to facilitate accurate training and evaluation of emotion recognition models.
